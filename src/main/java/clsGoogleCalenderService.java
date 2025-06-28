@@ -16,28 +16,53 @@ import java.security.GeneralSecurityException;
 import java.util.*;
 
 public class clsGoogleCalenderService {
+    // --------------------------------------
+    // Konstanten für die Google Calendar API
+    // --------------------------------------
+
+    // Name der Anwendung, die in der Google Cloud Console registriert ist
     private static final String APPLICATION_NAME = "JavaProject Ciuman Elias";
+
+    // JSON Factory für die Verarbeitung von JSON-Daten
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
+    // Verzeichnis, in dem die OAuth 2.0 Tokens gespeichert werden
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
+
+    // Liste der benötigten Berechtigungen (Scopes) für den Zugriff auf den Google Kalender
     private static final List<String> SCOPES = Collections.singletonList("https://www.googleapis.com/auth/calendar.readonly");
+
+    // Pfad zur Datei mit den Anmeldeinformationen (credentials.json)
     private static final String CREDENTIALS_FILE_PATH = "src/main/resources/credentials.json";
 
+
+    // ------------------------------------------------------------------------
+    // Methode zum Abrufen der Anmeldeinformationen für die Google Calendar API
+    // ------------------------------------------------------------------------
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+
+        // Laden der Client-Secrets aus der JSON-Datei
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
                 JSON_FACTORY, new FileReader(CREDENTIALS_FILE_PATH));
 
+        // Aufbau des OAuth 2.0 Flows mit den Client-Secrets und den benötigten Berechtigungen
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
 
+        // Lokaler Server für die Authentifizierung
         com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver receiver =
                 new com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver.Builder().setPort(8888).build();
 
+        // Startet den Autorisierungsprozess und wartet auf die Rückgabe des Tokens
         return new com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
+    // -----------------------------------------
+    // Methode zum Abrufen des Calendar Service
+    // -----------------------------------------
     private Calendar getCalenderService() throws IOException, GeneralSecurityException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Credential credential = getCredentials(HTTP_TRANSPORT);
@@ -46,11 +71,16 @@ public class clsGoogleCalenderService {
                 .build();
     }
 
+    // -------------------------------------------
+    // Holt alle Events aus dem Google Kalender
+    // -------------------------------------------
     public List<Map<String, String>> getEvents(String calenderId, String startDate, String endDate) throws Exception {
         Calendar service = getCalenderService();
+        // Zeitbereich für die Abfrage der Events
         DateTime timeMin = new DateTime(startDate + "T00:00:00Z");
         DateTime timeMax = new DateTime(endDate + "T23:59:59Z");
 
+        // Holt Events aus angegeben Kalender mit den angegebenen Zeitparamtern
         Events events = service.events().list(calenderId)
                 .setTimeMin(timeMin)
                 .setTimeMax(timeMax)
@@ -58,10 +88,12 @@ public class clsGoogleCalenderService {
                 .setSingleEvents(true)
                 .execute();
 
+        // Speichert Events in einer Liste von Maps
         List<Map<String, String>> eventList = new ArrayList<>();
         for (Event event : events.getItems()) {
             Map<String, String> map = new HashMap<>();
             map.put("summary", event.getSummary());
+            // Unterscheide zwischen ganzen Tagen und Terminen mit Uhrzeit
             map.put("start", event.getStart().getDateTime() != null ? event.getStart().getDateTime().toStringRfc3339() : event.getStart().getDate().toStringRfc3339());
             map.put("end", event.getEnd().getDateTime() != null ? event.getEnd().getDateTime().toStringRfc3339() : event.getEnd().getDate().toStringRfc3339());
             eventList.add(map);
