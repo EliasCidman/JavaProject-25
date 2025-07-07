@@ -1,7 +1,13 @@
+import swing.MainFrame;
+
+import javax.swing.*;
 import java.util.*;
 
 public class clsMain  {
     public static void main(String[] args) throws Exception {
+
+        // Startet die GUI in einem Event-Dispatching-Thread
+        SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
 
         // Überprüfen, ob die erforderlichen Argumente übergeben wurden
         if (args.length < 3) {
