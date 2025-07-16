@@ -34,3 +34,6 @@ bin/
 
 # Ignore Gradle build output directory
 build
+
+# Ignore credential files
+.src/resources/credentials.json
