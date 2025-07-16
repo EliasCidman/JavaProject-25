@@ -37,3 +37,4 @@ build
 
 # Ignore credential files
 .src/resources/credentials.json
+.tokens/
