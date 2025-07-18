@@ -48,7 +48,13 @@ public class MainFrame extends JFrame {
 
         // ActionEvent e: Objekt, das Aktion bei Klick auf Menüpunkt beschreibt
 
-        // About
+        // Application -> Settings
+        settingsItem.addActionListener(e -> {
+            dlgSettings settingsDialog = new dlgSettings(this);
+            settingsDialog.setVisible(true);
+        });
+
+        // Help -> About
         aboutItem.addActionListener(e -> {
             dlgAbout aboutDialog = new dlgAbout(this);
             aboutDialog.setVisible(true);

@@ -10,7 +10,7 @@ public class dlgAbout extends JDialog {
     // Label für die Anzeige von Informationen
     private final JLabel infoLabel;
 
-    // Konstruktor der Dialogbox
+    // Konstruktor der Dialogbox "About"
     public dlgAbout(JFrame parent) {
         super(parent, "About", true);
 
