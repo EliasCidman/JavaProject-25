@@ -12,6 +12,7 @@ public class MainFrame extends JFrame {
         // Setzt die Größe des Fensters
         setSize(800, 600);
 
+
         //------------
         // Menüleiste
         //------------
@@ -42,17 +43,35 @@ public class MainFrame extends JFrame {
         // Setzt die Menüleiste des Fensters
         setJMenuBar(menuBar);
 
+
         // -----------------------------
         // Aktionen für die Menüeinträge
         // -----------------------------
 
         // ActionEvent e: Objekt, das Aktion bei Klick auf Menüpunkt beschreibt
 
+        // ####
+        // File
+        // ####
+
+        // File -> Exit
+        exitItem.addActionListener(e -> System.exit(0));
+
+
+        // ###########
+        // Application
+        // ###########
+
         // Application -> Settings
         settingsItem.addActionListener(e -> {
             dlgSettings settingsDialog = new dlgSettings(this);
             settingsDialog.setVisible(true);
         });
+
+
+        // ####
+        // Help
+        // ####
 
         // Help -> About
         aboutItem.addActionListener(e -> {
