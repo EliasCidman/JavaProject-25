@@ -42,6 +42,18 @@ public class MainFrame extends JFrame {
         // Setzt die Menüleiste des Fensters
         setJMenuBar(menuBar);
 
+        // -----------------------------
+        // Aktionen für die Menüeinträge
+        // -----------------------------
+
+        // ActionEvent e: Objekt, das Aktion bei Klick auf Menüpunkt beschreibt
+
+        // About
+        aboutItem.addActionListener(e -> {
+            dlgAbout aboutDialog = new dlgAbout(this);
+            aboutDialog.setVisible(true);
+        });
+
 
         // -------------------
         // Inhalt des Fensters
