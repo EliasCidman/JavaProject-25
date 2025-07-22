@@ -1,3 +1,6 @@
+package main;
+
+import calendar.*;
 import swing.MainFrame;
 
 import javax.swing.*;
@@ -11,7 +14,7 @@ public class clsMain  {
 
         // Überprüfen, ob die erforderlichen Argumente übergeben wurden
         if (args.length < 3) {
-            System.out.println("Aufruf: java clsMain <Startdatum> <Enddatum> <Dateiname>");
+            System.out.println("Aufruf: java main.clsMain <Startdatum> <Enddatum> <Dateiname>");
             return;
         }
 
@@ -21,11 +24,11 @@ public class clsMain  {
         String fileName = args[2];
 
         // Google Calendar Service initialisieren
-        clsGoogleCalenderService calendarService = new clsGoogleCalenderService();
+        clsGoogleCalendarService calendarService = new clsGoogleCalendarService();
         List<Map<String, String>> events = calendarService.getEvents("primary", startDate, endDate);
 
         // iCalendar Exporter initialisieren
-        clsICalenderExporter calendarExporter = new clsICalenderExporter();
+        clsCalendarExporter calendarExporter = new clsCalendarExporter();
         calendarExporter.export(events, fileName);
 
         // Ausgabe für den User für den Abschluss des Exports

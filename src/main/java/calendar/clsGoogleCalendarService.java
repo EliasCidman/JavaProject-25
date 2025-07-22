@@ -1,3 +1,5 @@
+package calendar;
+
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -15,7 +17,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
-public class clsGoogleCalenderService {
+public class clsGoogleCalendarService {
     // --------------------------------------
     // Konstanten für die Google Calendar API
     // --------------------------------------
@@ -94,8 +96,8 @@ public class clsGoogleCalenderService {
             Map<String, String> map = new HashMap<>();
             map.put("summary", event.getSummary());
             // Unterscheide zwischen ganzen Tagen und Terminen mit Uhrzeit
-            map.put("start", event.getStart().getDateTime() != null ? event.getStart().getDateTime().toStringRfc3339() : event.getStart().getDate().toStringRfc3339());
-            map.put("end", event.getEnd().getDateTime() != null ? event.getEnd().getDateTime().toStringRfc3339() : event.getEnd().getDate().toStringRfc3339());
+            map.put("start", event.getStart().getDateTime() != null ? event.getStart().getDateTime().toStringRfc3339().replace("T", " ").replace("Z", " ") : event.getStart().getDate().toStringRfc3339().replace("T", " ").replace("Z", " "));
+            map.put("end", event.getEnd().getDateTime() != null ? event.getEnd().getDateTime().toStringRfc3339().replace("T", " ").replace("Z", " ") : event.getEnd().getDate().toStringRfc3339().replace("T", " ").replace("Z", " "));
             eventList.add(map);
         }
 

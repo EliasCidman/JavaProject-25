@@ -1,7 +1,9 @@
+package calendar;
+
 import java.util.*;
 import java.io.*;
 
-public class clsICalenderExporter {
+public class clsCalendarExporter {
 
     // Exportiert die Events als iCalendar-Datei
     public void export(List<Map<String, String>> events, String fileName) throws IOException {

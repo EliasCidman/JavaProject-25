@@ -1,9 +1,17 @@
 package swing;
 
+import calendar.clsGoogleCalendarService;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 public class MainFrame extends JFrame {
+
+    private JTable table;
+    private DefaultTableModel tableModel;
 
     // Variablen initialisieren für die Einstellungen
     private String calenderUrl = "";
@@ -51,6 +59,20 @@ public class MainFrame extends JFrame {
         setJMenuBar(menuBar);
 
 
+        // -------------------
+        // Inhalt des Fensters
+        // -------------------
+
+        // Tabelle für die Anzeige der Kalenderereignisse
+        // Spaltenüberschriften
+        String[] columns = {"Ereignis", "von", "bis"};
+        tableModel = new javax.swing.table.DefaultTableModel(columns, 0);
+        table = new JTable(tableModel);
+        add(new JScrollPane(table));
+
+        setLocationRelativeTo(null); // Zentriert das Fenster
+
+
         // -----------------------------
         // Aktionen für die Menüeinträge
         // -----------------------------
@@ -80,6 +102,30 @@ public class MainFrame extends JFrame {
                 fileName = settingsDialog.getFileName();
                 fromDate = settingsDialog.getFromDate();
                 toDate = settingsDialog.getToDate();
+
+                // Events abrufen und Tabelle aktualisieren
+                try {
+                    clsGoogleCalendarService calendarService = new clsGoogleCalendarService();
+                    List<Map<String, String>> events = calendarService.getEvents(
+                            calenderUrl,
+                            fromDate.toString(),
+                            toDate.toString()
+                    );
+
+                    // Tabelle leeren
+                    tableModel.setRowCount(0);
+
+                    for (Map<String, String> event : events) {
+                        tableModel.addRow(new Object[]{
+                                event.get("summary"),
+                                event.get("start"),
+                                event.get("end")
+                        });
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this,  "Fehler beim Laden der Kalenderdaten:\n" + ex.getMessage());
+                }
+
             }
         });
 
@@ -93,21 +139,6 @@ public class MainFrame extends JFrame {
             dlgAbout aboutDialog = new dlgAbout(this);
             aboutDialog.setVisible(true);
         });
-
-
-        // -------------------
-        // Inhalt des Fensters
-        // -------------------
-
-        // Tabelle für die Anzeige der Kalenderereignisse
-        // Spaltenüberschriften
-        String[] columns = {"Ereignis", "von", "bis"};
-        // Erstelle eine Tabelle mit den Spaltenüberschriften
-        JTable table = new JTable(new javax.swing.table.DefaultTableModel(columns, 0));
-        // Füge einige Beispielzeilen hinzu (diese sollten durch echte Daten ersetzt werden)
-        add(new JScrollPane(table));
-
-        setLocationRelativeTo(null); // Zentriert das Fenster
     }
 
 }

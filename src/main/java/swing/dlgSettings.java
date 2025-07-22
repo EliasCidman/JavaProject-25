@@ -8,7 +8,6 @@ import java.util.Date;
 
 public class dlgSettings extends JDialog {
 
-    private final JLabel infoLabel;
     private final JTextField urlField;
     private final JTextField fileNameField;
     private final JSpinner fromDateSpinner;
@@ -19,7 +18,7 @@ public class dlgSettings extends JDialog {
     public dlgSettings(JFrame parent, String prevUrl, String prevFileName, LocalDate prevFromDate, LocalDate prevToDate) {
         super(parent, "Settings", true);
 
-        infoLabel = new JLabel("Einstellungen:");
+        JLabel infoLabel = new JLabel("Einstellungen:");
 
         urlField = new JTextField(prevUrl,30);
         fileNameField = new JTextField(prevFileName, 20);
