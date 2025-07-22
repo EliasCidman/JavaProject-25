@@ -1,8 +1,15 @@
 package swing;
 
 import javax.swing.*;
+import java.time.LocalDate;
 
 public class MainFrame extends JFrame {
+
+    // Variablen initialisieren für die Einstellungen
+    private String calenderUrl = "";
+    private String fileName = "";
+    private LocalDate fromDate = LocalDate.now();
+    private LocalDate toDate = LocalDate.now().plusDays(7);
 
     public MainFrame() {
         // Setzt den Titel des Fensters
@@ -64,8 +71,16 @@ public class MainFrame extends JFrame {
 
         // Application -> Settings
         settingsItem.addActionListener(e -> {
-            dlgSettings settingsDialog = new dlgSettings(this);
+            dlgSettings settingsDialog = new dlgSettings(this, calenderUrl, fileName, fromDate, toDate);
             settingsDialog.setVisible(true);
+
+            if (settingsDialog.isConfirmed()) {
+                // Speichere Einstellungen, wenn "OK" geklickt wurde
+                calenderUrl = settingsDialog.getUrl();
+                fileName = settingsDialog.getFileName();
+                fromDate = settingsDialog.getFromDate();
+                toDate = settingsDialog.getToDate();
+            }
         });
 
 
