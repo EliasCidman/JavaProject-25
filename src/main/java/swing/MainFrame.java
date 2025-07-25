@@ -36,6 +36,31 @@ public class MainFrame extends JFrame {
         // File Menü
         JMenu fileMenu = new JMenu("File");
         JMenuItem saveItem = new JMenuItem("Save");
+
+        // Füge einen ActionListener hinzu, um die Aktion beim Klicken auf "Save" zu definieren
+        saveItem.addActionListener(e -> {
+        try {
+           // Kalenderdaten abrufen
+           clsGoogleCalendarService calendarService = new clsGoogleCalendarService();
+           List<Map<String, String>> events = calendarService.getEvents(
+                   calenderUrl, fromDate.toString(), toDate.toString()
+           );
+
+           // Pfad zum Download-Ordner
+            String downloadPath = System.getProperty("user.home") + "\\Downloads\\";
+            String exportFileName = fileName.endsWith(".ics") ? fileName: fileName + ".ics";
+            String fullFileName = downloadPath + exportFileName;
+
+           // Export
+           calendar.clsCalendarExporter exporter = new calendar.clsCalendarExporter();
+           exporter.export(events, fullFileName);
+
+           JOptionPane.showMessageDialog(this, "Datei erfolgreich gespeichert:\n" + fullFileName);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Fehler beim Exportieren der Kalenderdaten:\n" + ex.getMessage());
+        }
+        });
+
         JMenuItem exitItem = new JMenuItem("Exit");
         fileMenu.add(saveItem);
         fileMenu.add(exitItem);
