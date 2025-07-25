@@ -3,15 +3,21 @@ package swing;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import java.util.Properties;
+
+import swing.DateLabelFormatter;
 
 public class dlgSettings extends JDialog {
 
     private final JTextField urlField;
     private final JTextField fileNameField;
-    private final JSpinner fromDateSpinner;
-    private final JSpinner toDateSpinner;
+    //private final JSpinner fromDateSpinner;
+    //private final JSpinner toDateSpinner;
+    private final JDatePickerImpl fromDatePicker;
+    private final JDatePickerImpl toDatePicker;
     private boolean confirmed = false;
 
     // Konstruktor der Dialogbox "Settings"
@@ -23,14 +29,26 @@ public class dlgSettings extends JDialog {
         urlField = new JTextField(prevUrl,30);
         fileNameField = new JTextField(prevFileName, 20);
 
-        fromDateSpinner = new JSpinner(new SpinnerDateModel());
-        toDateSpinner = new JSpinner(new SpinnerDateModel());
-        fromDateSpinner.setEditor(new JSpinner.DateEditor(fromDateSpinner, "yyyy-MM-dd"));
-        toDateSpinner.setEditor(new JSpinner.DateEditor(toDateSpinner, "yyyy-MM-dd"));
 
-        // Vorbelegung der Datumsfelder
-        fromDateSpinner.setValue(Date.from(prevFromDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        toDateSpinner.setValue(Date.from(prevToDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        // DatePicker-Modelle und Panels
+        UtilDateModel fromModel = new UtilDateModel();
+        fromModel.setDate(prevFromDate.getYear(), prevFromDate.getMonthValue() - 1, prevFromDate.getDayOfMonth());
+        fromModel.setSelected(true);
+
+        UtilDateModel toModel = new UtilDateModel();
+        toModel.setDate(prevToDate.getYear(), prevToDate.getMonthValue() - 1, prevToDate.getDayOfMonth());
+        toModel.setSelected(true);
+
+        Properties prop = new Properties();
+        prop.put("text.today", "Heute");
+        prop.put("text.month", "Monat");
+        prop.put("text.year", "Jahr");
+
+        JDatePanelImpl fromDatePanel = new JDatePanelImpl(fromModel, prop);
+        fromDatePicker = new JDatePickerImpl(fromDatePanel, new DateLabelFormatter());
+
+        JDatePanelImpl toDatePanel = new JDatePanelImpl(toModel, prop);
+        toDatePicker = new JDatePickerImpl(toDatePanel, new DateLabelFormatter());
 
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 8, 8));
         formPanel.add(new JLabel("Kalender-URL:"));
@@ -38,9 +56,9 @@ public class dlgSettings extends JDialog {
         formPanel.add(new JLabel("Dateiname:"));
         formPanel.add(fileNameField);
         formPanel.add(new JLabel("Zeitraum von:"));
-        formPanel.add(fromDateSpinner);
+        formPanel.add(fromDatePicker);
         formPanel.add(new JLabel("Zeitraum bis:"));
-        formPanel.add(toDateSpinner);
+        formPanel.add(toDatePicker);
 
         JButton okButton = new JButton("OK");
         JButton cancelButton = new JButton("Cancel");
@@ -65,7 +83,7 @@ public class dlgSettings extends JDialog {
 
         add(mainPanel);
 
-        setSize(400, 200);
+        setSize(600, 250);
         setLocationRelativeTo(parent);
     }
 
@@ -83,12 +101,12 @@ public class dlgSettings extends JDialog {
     }
 
     public LocalDate getFromDate() {
-        java.util.Date date = (java.util.Date) fromDateSpinner.getValue();
-        return date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        UtilDateModel model = (UtilDateModel) fromDatePicker.getModel();
+        return LocalDate.of(model.getYear(), model.getMonth() + 1, model.getDay());
     }
 
     public LocalDate getToDate() {
-        java.util.Date date = (java.util.Date) toDateSpinner.getValue();
-        return date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        UtilDateModel model = (UtilDateModel) toDatePicker.getModel();
+        return LocalDate.of(model.getYear(), model.getMonth() + 1, model.getDay());
     }
 }
