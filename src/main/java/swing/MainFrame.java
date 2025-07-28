@@ -27,6 +27,35 @@ public class MainFrame extends JFrame {
         // Setzt die Größe des Fensters
         setSize(800, 600);
 
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
+
+        JLabel titleLabel = new JLabel("Google Calendar Exporter");
+        titleLabel.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 24));
+        titleLabel.setAlignmentX(0.5f);
+
+        JLabel descLabel = new JLabel("<html>Mit diesem Tool ist es möglich, Google-Kalender-Ereignisse als iCalender-Datei zu exportieren, um diese in eine Kalender-Anwendung zu importieren" +
+                "<br>Im Menü 'Application' können Einstellungen getroffen werden <br>" +
+                "<br>Danach werden alle Ereignisse angezeigt und die iCalender-Datei kann über 'File' → 'Save' gespeichert werden<br></html>");
+        descLabel.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+        descLabel.setAlignmentX(0.5f);
+
+
+        headerPanel.add(titleLabel);
+        headerPanel.add(Box.createVerticalStrut(8));
+        headerPanel.add(descLabel);
+        headerPanel.add(Box.createVerticalStrut(16));
+
+        add(headerPanel, java.awt.BorderLayout.NORTH);
+
+        // Tabelle für die Anzeige der Kalenderereignisse
+        // Spaltenüberschriften
+        String[] columns = {"Ereignis", "von", "bis"};
+        tableModel = new javax.swing.table.DefaultTableModel(columns, 0);
+        table = new JTable(tableModel);
+        add(new JScrollPane(table), java.awt.BorderLayout.CENTER);
+
+        setLocationRelativeTo(null); // Zentriert das Fenster
 
         //------------
         // Menüleiste
@@ -82,21 +111,6 @@ public class MainFrame extends JFrame {
 
         // Setzt die Menüleiste des Fensters
         setJMenuBar(menuBar);
-
-
-        // -------------------
-        // Inhalt des Fensters
-        // -------------------
-
-        // Tabelle für die Anzeige der Kalenderereignisse
-        // Spaltenüberschriften
-        String[] columns = {"Ereignis", "von", "bis"};
-        tableModel = new javax.swing.table.DefaultTableModel(columns, 0);
-        table = new JTable(tableModel);
-        add(new JScrollPane(table));
-
-        setLocationRelativeTo(null); // Zentriert das Fenster
-
 
         // -----------------------------
         // Aktionen für die Menüeinträge

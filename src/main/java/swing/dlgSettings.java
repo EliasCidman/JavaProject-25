@@ -51,7 +51,7 @@ public class dlgSettings extends JDialog {
         toDatePicker = new JDatePickerImpl(toDatePanel, new DateLabelFormatter());
 
         JPanel formPanel = new JPanel(new GridLayout(4, 2, 8, 8));
-        formPanel.add(new JLabel("Kalender-URL:"));
+        formPanel.add(new JLabel("Kalender-ID:"));
         formPanel.add(urlField);
         formPanel.add(new JLabel("Dateiname:"));
         formPanel.add(fileNameField);
