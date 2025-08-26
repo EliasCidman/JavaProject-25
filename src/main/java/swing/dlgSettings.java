@@ -10,11 +10,15 @@ import java.util.Properties;
 
 import calendar.clsGoogleCalendarService;
 import calendar.clsGoogleCalendarUtils;
+import util.clsSettingsManager;
 
 import swing.DateLabelFormatter;
 
+
 public class dlgSettings extends JDialog {
 
+    // Settings-Manager-Instanz
+    private final clsSettingsManager settingsManager = new clsSettingsManager();
     private final JTextField urlField;
     private final JTextField fileNameField;
     //private final JSpinner fromDateSpinner;
@@ -28,6 +32,12 @@ public class dlgSettings extends JDialog {
         super(parent, "Settings", true);
 
         JLabel infoLabel = new JLabel("Einstellungen:");
+
+        // Einstellungen laden
+        prevUrl = settingsManager.get("calendarUrl", "");
+        prevFileName = settingsManager.get("fileName", "calendar.ics");
+        prevFromDate = LocalDate.parse(settingsManager.get("fromDate", LocalDate.now().toString()));
+        prevToDate = LocalDate.parse(settingsManager.get("toDate", LocalDate.now().toString()));
 
         urlField = new JTextField(prevUrl,30);
         fileNameField = new JTextField(prevFileName, 20);
@@ -116,6 +126,13 @@ public class dlgSettings extends JDialog {
             };
             worker.execute();
             loading.setVisible(true);
+
+            // Einstellungen speichern
+            settingsManager.set("calendarUrl", url);
+            settingsManager.set("fileName", fileName);
+            settingsManager.set("fromDate", from.toString());
+            settingsManager.set("toDate", to.toString());
+            settingsManager.saveSettings();
 
             confirmed = true;
             setVisible(false);
