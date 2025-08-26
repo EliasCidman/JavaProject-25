@@ -3,3 +3,4 @@ This is a project which is created for the java lecture in 2025 at DHBW Mannheim
 It contains an export for iCalender Files from Google Calendars
 
 ---
+The given questions can be found in the project documentation
