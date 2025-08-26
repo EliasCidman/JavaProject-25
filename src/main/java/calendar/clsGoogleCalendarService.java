@@ -65,7 +65,7 @@ public class clsGoogleCalendarService {
     // -----------------------------------------
     // Methode zum Abrufen des Calendar Service
     // -----------------------------------------
-    private Calendar getCalenderService() throws IOException, GeneralSecurityException {
+    public static Calendar getCalendarService() throws IOException, GeneralSecurityException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Credential credential = getCredentials(HTTP_TRANSPORT);
         return new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
@@ -77,7 +77,7 @@ public class clsGoogleCalendarService {
     // Holt alle Events aus dem Google Kalender
     // -------------------------------------------
     public List<Map<String, String>> getEvents(String calenderId, String startDate, String endDate) throws Exception {
-        Calendar service = getCalenderService();
+        Calendar service = getCalendarService();
         // Zeitbereich für die Abfrage der Events
         DateTime timeMin = new DateTime(startDate + "T00:00:00Z");
         DateTime timeMax = new DateTime(endDate + "T23:59:59Z");

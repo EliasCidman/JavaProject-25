@@ -8,6 +8,9 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import java.util.Properties;
 
+import calendar.clsGoogleCalendarService;
+import calendar.clsGoogleCalendarUtils;
+
 import swing.DateLabelFormatter;
 
 public class dlgSettings extends JDialog {
@@ -64,6 +67,56 @@ public class dlgSettings extends JDialog {
         JButton cancelButton = new JButton("Cancel");
 
         okButton.addActionListener(e -> {
+            // Validierung, ob alle Felder ausgefüllt wurden und ob das 'Von'-Datum vor dem 'Bis'-Datum liegt
+            String url = urlField.getText().trim();
+            String fileName = fileNameField.getText().trim();
+            LocalDate from = getFromDate();
+            LocalDate to = getToDate();
+
+            // Sind alle Felder ausgefüllt?
+            if(url.isEmpty() || fileName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bitte alle Felder ausfüllen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Ist das 'Von'-Datum vor dem 'Bis'-Datum?
+            if(from.isAfter(to)) {
+                JOptionPane.showMessageDialog(this, "Das 'Von'-Datum muss vor dem 'Bis'-Datum liegen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Kalender-ID asynchron validieren
+            JDialog loading = new JDialog(this, "Prüfe Kalender-ID...", true);
+            loading.add(new JLabel("Bitte warten..."));
+            loading.setSize(200, 100);
+            loading.setLocationRelativeTo(this);
+
+            SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
+                @Override
+                protected Boolean doInBackground() throws Exception {
+                    // calendarService muss übergeben werden
+                    return clsGoogleCalendarUtils.calendarIdExists(clsGoogleCalendarService.getCalendarService(), url);
+                }
+                @Override
+                protected void done() {
+                    loading.dispose();
+                    try {
+                        if(get()) {
+                            // Kalender-ID ist gültig
+                            confirmed = true;
+                            setVisible(false);
+                        } else {
+                            // Kalender-ID is ungültig
+                            JOptionPane.showMessageDialog(dlgSettings.this, "Die eingegebene Kalender-ID ist ungültig.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(dlgSettings.this, "Fehler beim Check der Kalender-ID: " + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            };
+            worker.execute();
+            loading.setVisible(true);
+
             confirmed = true;
             setVisible(false);
         });

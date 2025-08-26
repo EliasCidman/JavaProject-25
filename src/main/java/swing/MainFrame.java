@@ -162,7 +162,7 @@ public class MainFrame extends JFrame {
                         });
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this,  "Fehler beim Laden der Kalenderdaten:\n" + ex.getMessage());
+                    //JOptionPane.showMessageDialog(this,"Fehler beim Laden der Kalenderdaten:\n" + ex.getMessage());
                 }
 
             }
