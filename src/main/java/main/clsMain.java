@@ -9,8 +9,11 @@ import java.util.*;
 public class clsMain  {
     public static void main(String[] args) throws Exception {
 
-        // Startet die GUI in einem Event-Dispatching-Thread
-        SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
+        // Startet die GUI in einem Event-Dispatching-Thread, wenn keine Argumente übergeben wurden
+        if (args.length == 0) {
+            SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
+            return;
+        }
 
         // Überprüfen, ob die erforderlichen Argumente übergeben wurden
         if (args.length < 3) {

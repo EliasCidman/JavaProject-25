@@ -4,10 +4,13 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
-mainClassName = 'clsMain'
 sourceCompatibility = 11
 targetCompatibility = 11
 version = '1.0'
+
+application {
+    mainClass = 'main.clsMain'
+}
 
 repositories {
     mavenCentral()
@@ -28,6 +31,18 @@ shadowJar {
     archiveVersion.set('1.0')
 }
 
+jar {
+    manifest {
+        attributes (
+            'Main-Class': 'main.clsMain'
+        )
+    }
+}
+
 tasks.startScripts {
     dependsOn tasks.shadowJar
+}
+
+tasks.named('startShadowScripts') {
+    dependsOn tasks.jar
 }
