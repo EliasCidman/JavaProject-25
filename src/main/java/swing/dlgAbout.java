@@ -40,6 +40,11 @@ public class dlgAbout extends JDialog {
         return "<html><div>" +
                 "<h2 style='font-size:" + h2Size + "px;'>Google Calendar Exporter in Java</h2>" +
                 "<small style='font-size:" + baseFontSize + "px;'>DHBW 2025 Sommersemester</small><br>" +
-                "<p style='font-size:" + pSize + "px;'>Entwickler: Elias Ciuman</p></div></html>";
+                "<p style='font-size:" + pSize + "px;'>Entwickler: Elias Ciuman</p>" +
+                "<p style='font-size:" + pSize + "px;'><b>Optionale Features:</b></p>" +
+                "<ul style='font-size:" + pSize + "px;'>" +
+                "<li>Input-Validierung</li>" +
+                "<li>Speicherung der zuvor eingegebenen Daten (persistente Einstellungen)</li>" +
+                "</ul></div></html>";
     }
 }
