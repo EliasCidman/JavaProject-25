@@ -25,5 +25,5 @@ The given questions can be found in the project documentation
 7. Click on OK
 8. You will see the main window with all events
 9. Go to File -> Export
-10. You will find the created file in you downloads folder
+10. You will find the created file in your downloads folder
 ---

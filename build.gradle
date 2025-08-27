@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    // Shadow plugin for creating fat/uber JARs
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
@@ -8,14 +9,17 @@ sourceCompatibility = 11
 targetCompatibility = 11
 version = '1.0'
 
+// Define the main class for the application
 application {
     mainClass = 'main.clsMain'
 }
 
+// Repositories to fetch dependencies from
 repositories {
     mavenCentral()
 }
 
+// Project dependencies
 dependencies {
     implementation 'com.google.api-client:google-api-client:2.0.0'
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.34.1'
@@ -25,12 +29,14 @@ dependencies {
     implementation 'org.jdatepicker:jdatepicker:1.3.4'
 }
 
+// Configure the Shadow plugin to create a fat JAR
 shadowJar {
     archiveBaseName.set('JavaProject_Ciuman_Elias')
     archiveClassifier.set('')
     archiveVersion.set('1.0')
 }
 
+// Ensure the standard JAR task includes the main class in its manifest
 jar {
     manifest {
         attributes (
@@ -39,10 +45,12 @@ jar {
     }
 }
 
+// Make the startScripts task depend on the shadowJar task
 tasks.startScripts {
     dependsOn tasks.shadowJar
 }
 
+// Make the startShadowScripts task depend on the jar task
 tasks.named('startShadowScripts') {
     dependsOn tasks.jar
 }
