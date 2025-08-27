@@ -1,0 +1,21 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {section}{\numberline {1}Einleitung}{2}{}%
+\contentsline {section}{\numberline {2}Anforderungen}{2}{}%
+\contentsline {subsection}{\numberline {2.1}Funktionale Anforderungen}{2}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}Aufgabe 1)}{2}{}%
+\contentsline {subsubsection}{\numberline {2.1.2}Aufgabe 2)}{2}{}%
+\contentsline {subsection}{\numberline {2.2}Nicht-funktionale Anforderungen}{3}{}%
+\contentsline {section}{\numberline {3}Projektarchitektur}{3}{}%
+\contentsline {subsection}{\numberline {3.1}Verwendete Technologien}{3}{}%
+\contentsline {subsection}{\numberline {3.2}Projektstruktur}{4}{}%
+\contentsline {section}{\numberline {4}Implementierung}{4}{}%
+\contentsline {subsection}{\numberline {4.1}Aufgabe 1)}{4}{}%
+\contentsline {subsection}{\numberline {4.2}Aufgabe 2)}{5}{}%
+\contentsline {subsection}{\numberline {4.3}Speicherung von Daten}{6}{}%
+\contentsline {section}{\numberline {5}Benutzung}{7}{}%
+\contentsline {subsection}{\numberline {5.1}Installation und Voraussetzung}{7}{}%
+\contentsline {subsection}{\numberline {5.2}Bedienungsanleitung}{7}{}%
+\contentsline {section}{\numberline {6}Fragen}{8}{}%
+\contentsline {subsection}{\numberline {6.1}Fragen zu Aufgabe 1}{8}{}%
+\contentsline {subsection}{\numberline {6.2}Fragen zu Aufgabe 2}{9}{}%
+\contentsline {section}{\numberline {7}Anhang}{11}{}%

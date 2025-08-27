@@ -1,0 +1,50 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram name="Seite-1" id="3NQP5xFXNkl0h-A-CDiE">
+    <mxGraphModel dx="1188" dy="708" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="6fl_97KYvAXwbnXiEoTm-1" target="6fl_97KYvAXwbnXiEoTm-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-16" value="&amp;lt;&amp;lt;create&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="6fl_97KYvAXwbnXiEoTm-13">
+          <mxGeometry x="0.0576" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-1" value="clsMain" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="30" width="160" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-2" value="+ main(args:String[ ])" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="6fl_97KYvAXwbnXiEoTm-1">
+          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-5" value="clsGoogleCalendarService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="150" width="510" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-6" value="-&amp;nbsp; APPLICATION_NAME: String&lt;div&gt;-&amp;nbsp; JSON_FACTORY: JsonFactory&lt;/div&gt;&lt;div&gt;-&amp;nbsp; TOKENS_DIRECTORY_PATH: String&lt;/div&gt;&lt;div&gt;-&amp;nbsp; SCOPES: List&amp;lt;String&amp;gt;&lt;/div&gt;&lt;div&gt;-&amp;nbsp; CREDENTIALS_FILE_PATH: String&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="6fl_97KYvAXwbnXiEoTm-5">
+          <mxGeometry y="26" width="510" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="6fl_97KYvAXwbnXiEoTm-5">
+          <mxGeometry y="110" width="510" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-8" value="-&amp;nbsp; getCredentials(final NetHttpTransport HTTP_TRANSPORT): Credential&lt;div&gt;+ getCalendarService(): Calendar&lt;/div&gt;&lt;div&gt;+ getEvents(String calendarId, String startDate, String endDate): List&amp;lt;Map&amp;lt;String, String&amp;gt;&amp;gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="6fl_97KYvAXwbnXiEoTm-5">
+          <mxGeometry y="118" width="510" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-9" value="clsCalendarExporter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="30" width="330" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-12" value="+ export(List&amp;lt;Map&amp;lt;String, String&amp;gt;&amp;gt; events, String fileName)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="6fl_97KYvAXwbnXiEoTm-9">
+          <mxGeometry y="26" width="330" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="6fl_97KYvAXwbnXiEoTm-2" target="6fl_97KYvAXwbnXiEoTm-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6fl_97KYvAXwbnXiEoTm-15" value="&amp;lt;&amp;lt;create&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="6fl_97KYvAXwbnXiEoTm-14">
+          <mxGeometry x="0.4234" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
